@@ -1,0 +1,65 @@
+evaluation turns: 300 of 320 (Dev 70, Cal 148, Holdout 82)
+
+== Table 2: LLM annotators (StudyChat rows on the 300 evaluation turns; Holdout rows unchanged) ==
+  Opus teacher run, StudyChat eval (n=293):        66.6 / 0.655
+  Opus teacher run, Holdout (n=80):               53.8 / 0.485
+  Opus holdout run, Holdout (n=82):               80.5 / 0.724
+  Sonnet teacher run, Math 300:                        83.7 / 0.753
+  GPT-5.5, StudyChat eval (n=300):                  78.3 / 0.758
+  GPT-5.5, Holdout (n=82):                         74.4 / 0.701
+    (all 320 for reference: 79.7 / 0.768)
+  GPT-4o calibrated, StudyChat eval (n=300):                  68.3 / 0.696
+  GPT-4o calibrated, Holdout (n=82):                         57.3 / 0.523
+    (all 320 for reference: 70.3 / 0.713)
+  on the 20 withheld turns: teacher run 94.7, GPT-5.5 100.0, GPT-4o 100.0
+  student seed 2026 on the 20 withheld turns: 60.0
+
+== Loss ablation, RoBERTa-base (Protocol B on the 300 evaluation turns; Holdout single split) ==
+  Sqrt-inv-freq CE                             74.5 ± 8.7   0.657 ± 0.140   folds acc [84.2, 58.6, 75.5, 73.7, 80.4]
+      Holdout (n=82): 73.2 / 0.656
+  Unweighted CE                                74.2 ± 6.7   0.690 ± 0.101   folds acc [77.6, 62.1, 79.2, 71.9, 80.4]
+      Holdout (n=82): 72.0 / 0.675
+  Focal, gamma=2                               74.6 ± 8.7   0.665 ± 0.122   folds acc [82.9, 58.6, 75.5, 73.7, 82.1]
+      Holdout (n=82): 78.0 / 0.749
+  accuracy span across objectives: 0.3 points; macro-F1 span: 0.034
+  input variant prose-first (pf384)            76.0 ± 7.6   0.656 ± 0.158   folds acc [81.6, 62.1, 75.5, 77.2, 83.9]
+
+== Table 3: teacher, SF, CCD on the 300 evaluation turns (Protocol B fold mean ± SD) ==
+  Teacher run (Opus, 0 labels), n=293:              66.6 / 0.655
+  Student (SF), turn + context                 47.1 ± 12.1   0.365 ± 0.148   folds acc [48.7, 39.7, 28.3, 56.1, 62.5]
+  Student (SF), turn only                      61.2 ± 7.5   0.471 ± 0.111   folds acc [69.7, 51.7, 60.4, 54.4, 69.6]
+  Student (CCD), teacher labels only           72.8 ± 4.8   0.675 ± 0.087   folds acc [72.4, 65.5, 77.4, 70.2, 78.6]
+  Student (CCD), seed 2026                     74.5 ± 8.7   0.657 ± 0.140   folds acc [84.2, 58.6, 75.5, 73.7, 80.4]
+  Student (CCD), seed 2027                     75.8 ± 9.1   0.693 ± 0.107   folds acc [85.5, 60.3, 77.4, 71.9, 83.9]
+  Student (CCD), seed 2028                     75.1 ± 6.6   0.684 ± 0.061   folds acc [80.3, 62.1, 77.4, 77.2, 78.6]
+  three-seed mean: 75.1 / 0.678   (seed macro-F1 spread 0.037; unweighted minus sqrt-inv seed 2026 macro-F1: +0.034)
+
+== Section 4.2 numbers ==
+  GPT-5.5 lead over three-seed mean: 3.2 points (GPT-5.5 78.3, student 75.1)
+  student minus teacher run, per seed: 7.9 / 9.3 / 8.5 (teacher 66.6)
+  CCD beats SF (turn only) in 5/5 folds on accuracy, 5/5 on macro-F1; CCD right & SF wrong 51 vs reverse 11; exact McNemar p = 2.8e-07
+  before adaptation (silver only, pooled on 300): 72.7
+  per-code F1, seed 2026 OOF on 300: OT 0.89 (n=5)  CO1 0.86 (n=58)  CO2 0.50 (n=2)  CO3 0.80 (n=112)  AL1 0.69 (n=60)  AL2 0.57 (n=26)  AL4 0.40 (n=2)  AL5 0.56 (n=35)
+  StudyChat-only pool: fold mean 71.9 (pooled 72.3)
+  Mathematics, archived student per-code F1 (from the confusion matrix): OT 0.73  CO1 0.46  CO2 0.72  CO3 0.68  AL1 0.67  AL2 0.55  AL4 0.00  AL5 0.57; accuracy 60.0; CO3->CO1 27, AL1->CO1 14
+  Mathematics, Sonnet teacher per-code F1: OT 0.89  CO1 0.78  CO2 0.88  CO3 0.86  AL1 0.72  AL2 0.89  AL4 0.00  AL5 1.00
+  accuracy by current-turn length quintile (300): q0 n=60 med=27 acc=85.0; q1 n=61 med=53 acc=82.0; q2 n=59 med=127 acc=79.7; q3 n=60 med=408 acc=66.7; q4 n=60 med=1761 acc=61.7
+  Protocol B model on the Holdout subset of OOF (n=82): 79.3; over the 300: fold mean 74.5, pooled 75.0
+    Protocol A seed 2026: Holdout 73.2 / 0.656; Math 65.3 / 0.555
+    Protocol A seed 2027: Holdout 78.0 / 0.714; Math 63.0 / 0.536
+    Protocol A seed 2028: Holdout 79.3 / 0.759; Math 66.0 / 0.574
+    Protocol A DistilRoBERTa: Holdout 70.7 / 0.643; Math 56.0 / 0.502
+
+== Table 4: student size and gold volume (pooled OOF on the 300 evaluation turns) ==
+  DistilRoBERTa 82M   0%:   70.0 / 0.562
+  DistilRoBERTa 82M 100%:   74.0 / 0.668
+  RoBERTa-base 125M   0%:   72.7 / 0.606
+  RoBERTa-base 125M  25%:   70.7 / 0.635
+  RoBERTa-base 125M  50%:   73.0 / 0.672
+  RoBERTa-base 125M  75%:   74.0 / 0.688
+  RoBERTa-base 125M 100%:   75.0 / 0.660
+  RoBERTa-base 125M 100% (seed 2026 predsB): 75.0 / 0.660
+  SF turn-only pooled on 300: 61.7 / 0.422
+
+== Abstract / conclusion ==
+  SF turn-only fold mean 61.2 / 0.471; CCD three-seed mean 75.1 / 0.678; teacher run 66.6; GPT-5.5 78.3; gap 3.2; CCD - SF 14.0 points, 0.206 macro-F1

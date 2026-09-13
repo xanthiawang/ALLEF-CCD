@@ -11,11 +11,11 @@ itself and its LLM annotation pipeline were introduced in Wang and Liu (AIED 202
 
 | Folder | Contents |
 |---|---|
-| `codebook/` | The two system prompts the teachers ran under: ALLEF v2.2 (StudyChat) and the v2.2-math variant (Mathematics). The `P_t` output requirement quoted in Fig. 1 is Section 7 of the first file. |
-| `data/` | Teacher labels for StudyChat (16,851 turns, Claude Opus 4) and Mathematics (28,665 turns, Claude Sonnet 4); the 320-turn StudyChat human gold with both coders' codes and the adjudicated code; the 82-turn Holdout with the separate Opus holdout run (Table 2). |
+| `codebook/` | The two system prompts the teachers ran under: ALLEF v2.2 (StudyChat, 767 lines: definitions, exclusion conditions, ten disambiguation rules, worked examples, base-rate table) and the compact v2.2-math variant (Mathematics, 29 lines: definitions and seven rules, no worked examples). The `P_t` output requirement quoted in Fig. 1 is Section 7 of the first file. Section 9 of the first file contains 31 worked examples, 20 of which are Dev turns of the StudyChat gold; see *Evaluation turns* below. |
+| `data/` | Teacher labels for StudyChat (16,851 turns, Claude Opus 4) and Mathematics (28,665 turns, Claude Sonnet 4); the 320-turn StudyChat human gold with both coders' codes and the adjudicated code (its Holdout rows are the pre-revision snapshot; the canonical Holdout gold, which differs on 6 of 82 turns, is the `gold_code` column of the Holdout file); the 82-turn Holdout with the canonical gold and the separate Opus holdout run (Table 2). |
 | `splits/` | `teacher_pool_conversation_excluded.parquet`: the 39,409-turn training pool plus the 4,039-turn model-selection slice after conversation-level exclusion, each turn with its real-time-valid context window. `gold_eval_620.parquet`: the 320 StudyChat gold turns (Dev/Cal/Holdout) and the 300 Mathematics gold turns in the same input format. |
 | `scripts/` | Numbered in run order (see below). |
-| `results/` | Out-of-fold and holdout predictions with class probabilities for every configuration in Tables 3–5 (`*_predsA.parquet` = Protocol A, `*_predsB.parquet` = Protocol B), training logs, the gold learning curve, the SF baselines, and the bootstrap summary. |
+| `results/` | Out-of-fold and holdout predictions with class probabilities for every configuration in the paper (`*_predsA.parquet` = Protocol A, `*_predsB.parquet` = Protocol B), training logs, the gold learning curve with per-turn predictions (`gold_learning_curve_2026-09-14_*`), the SF baselines, the bootstrap summary, the per-turn LLM annotator table behind Table 2 (`studychat_gold_320_llm_annotators_2026-09-14.csv`: adjudicated code, Opus teacher run, Opus holdout run, GPT-5.5, GPT-4o calibrated, prompt-example flag), the list of the 20 prompt-example turns, the Mathematics confusion matrix of the archived student, and `verify_paper_numbers_2026-09-14.txt`, the output of `scripts/08_verify_paper_numbers.py` from which every number in the paper is read. |
 | `figures/` | Fig. 1 (PDF/PNG), its text-free base image, and the provenance note. |
 | `models/` | Student checkpoints are GitHub Release assets; see `models/README.md`. |
 
@@ -32,7 +32,13 @@ python scripts/03_sf_baseline.py --epochs 20 --lr 3e-5 --bs 16 --input message  
 python scripts/04_gold_learning_curve.py                                       # Table 5 gold budgets
 python scripts/05_bootstrap_holdout.py; python scripts/06_aggregate.py         # summaries
 python scripts/07_make_fig1.py                                                 # Fig. 1
+python scripts/08_verify_paper_numbers.py                                      # every number in Tables 2-4 and Section 4, from results/
+python scripts/01_build_pool.py --exclusion turn                               # leakage ablation pool (turn-level exclusion)
 ```
+
+## Evaluation turns
+
+The StudyChat teacher prompt (`codebook/allef_v2.2_teacher_prompt_studychat.md`, Section 9) carries 31 worked examples, and 20 of them are Dev turns of the 320-turn human gold, printed with their adjudicated codes; its Section 10 lists code base rates from an earlier revision of the same gold. Every LLM annotator in Table 2 (the Opus teacher run, GPT-5.5, GPT-4o) ran under a prompt containing those examples, so those 20 turns cannot score an LLM. They are therefore excluded from every evaluation on the StudyChat gold, students included, leaving **300 evaluation turns**; the folds of Protocol B are unchanged (StratifiedGroupKFold over 320, seed 20260912) and the 20 turns remain available as human gold inside the training folds. `results/prompt_example_turns_20_2026-09-14.csv` lists them; `scripts/08_verify_paper_numbers.py` recomputes all paper numbers on this basis and also prints the all-320 figures for reference.
 
 Scripts read `ALLEF_ROOT` (default: the repository root) and expect the `splits/` files above; `01_build_pool.py`
 documents how the pool was built from `data/` and is included for transparency rather than as a required step.

@@ -1,0 +1,6 @@
+budget 0 (silver only): n_adapt=0 kappa8=0.608
+budget 0.25: n_adapt~64 kappa8=0.601 acc=0.700 macroF1=0.622 family=0.558 (3.3m)
+budget 0.50: n_adapt~128 kappa8=0.627 acc=0.719 macroF1=0.655 family=0.582 (6.4m)
+budget 0.75: n_adapt~192 kappa8=0.635 acc=0.728 macroF1=0.672 family=0.569 (9.5m)
+budget 1.00: n_adapt~256 kappa8=0.651 acc=0.741 macroF1=0.646 family=0.593 (12.5m)
+DONE learning curve (preds saved)

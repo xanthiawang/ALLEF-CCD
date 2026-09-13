@@ -21,7 +21,7 @@ V = ROOT/"models/icassp2027_robertabase_sqrtinv_silver"
 CODES = ["OT","CO1","CO2","CO3","AL1","AL2","AL4","AL5"]; FAM = {c:(c[:2] if c[:2] in ("CO","AL") else "OT") for c in CODES}
 DEV = "mps" if torch.backends.mps.is_available() else "cpu"; MAXLEN = 384
 lines = []
-def log(s=""): print(s, flush=True); lines.append(str(s)); (OUT/"gold_learning_curve_2026-09-12.txt").write_text("\n".join(lines))
+def log(s=""): print(s, flush=True); lines.append(str(s)); (OUT/"gold_learning_curve_2026-09-14.txt").write_text("\n".join(lines))
 
 gold = pd.read_parquet(ROOT/"data/distill/allef_gold_eval_v3clean_2026-07-14.parquet")
 ann = pd.read_csv(ROOT/"data/annotated/full_annotation/full_annotation_results.csv")
@@ -58,6 +58,9 @@ folds = list(skf.split(g, g["label"], g["student_id"]))
 rows, t0 = [], time.time()
 m0 = AutoModelForSequenceClassification.from_pretrained(V, torch_dtype=torch.float32).to(DEV)
 p0 = predict(m0, g["text"].tolist()); del m0
+g["fold"] = -1
+for k, (tri, tei) in enumerate(folds): g.loc[g.index[tei], "fold"] = k
+g["pred_000"] = p0
 log(f"budget 0 (silver only): n_adapt=0 kappa8={cohen_kappa_score(g.gold_code, p0):.3f}")
 rows.append(dict(fraction=0.0, n_adapt_mean=0, kappa8=cohen_kappa_score(g.gold_code, p0), acc=accuracy_score(g.gold_code, p0), macro_f1=f1_score(g.gold_code, p0, average="macro")))
 for fi, frac in enumerate((0.25, 0.5, 0.75, 1.0)):
@@ -67,7 +70,9 @@ for fi, frac in enumerate((0.25, 0.5, 0.75, 1.0)):
         sub = rng.choice(tri, max(8, int(round(frac*len(tri)))), replace=False) if frac < 1 else tri
         ns.append(len(sub)); m = adapt(g.iloc[sub].reset_index(drop=True), seed=2026+k, epochs=int(round(3/frac)))  # keep optimisation steps ~constant across budgets
         pred[tei] = predict(m, g.iloc[tei]["text"].tolist()); del m
+    g[f"pred_{int(round(frac*100)):03d}"] = pred
     k8 = cohen_kappa_score(g.gold_code, pred)
     log(f"budget {frac:.2f}: n_adapt~{int(np.mean(ns))} kappa8={k8:.3f} acc={accuracy_score(g.gold_code, pred):.3f} macroF1={f1_score(g.gold_code, pred, average='macro'):.3f} family={cohen_kappa_score(g.gold_code.map(FAM), pd.Series(pred).map(FAM)):.3f} ({(time.time()-t0)/60:.1f}m)")
     rows.append(dict(fraction=frac, n_adapt_mean=int(np.mean(ns)), kappa8=k8, acc=accuracy_score(g.gold_code, pred), macro_f1=f1_score(g.gold_code, pred, average="macro")))
-pd.DataFrame(rows).to_csv(OUT/"gold_learning_curve_2026-09-12.csv", index=False); log("DONE learning curve")
+pd.DataFrame(rows).to_csv(OUT/"gold_learning_curve_2026-09-14.csv", index=False)
+g.drop(columns=["text"]).to_parquet(OUT/"gold_learning_curve_2026-09-14_preds.parquet"); log("DONE learning curve (preds saved)")

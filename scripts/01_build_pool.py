@@ -41,7 +41,12 @@ L = {c: i for i, c in enumerate(CODES)}
 import argparse, re
 _ap = argparse.ArgumentParser()
 _ap.add_argument("--variant", choices=["v3", "pf"], default="v3")
-VARIANT = _ap.parse_args().variant
+# 2026-09-14 addition: --exclusion turn builds the TURN-level-exclusion pool for the leakage ablation
+# (only the gold turns themselves leave the pool; sibling turns of gold conversations stay in training;
+# silver_val assignment inherited from the v3clean pool). Writes a separately dated file, never overwrites v3clean.
+_ap.add_argument("--exclusion", choices=["conv", "turn"], default="conv")
+_args = _ap.parse_args(); VARIANT = _args.variant; EXCLUSION = _args.exclusion
+assert not (VARIANT == "pf" and EXCLUSION == "turn"), "turn-level exclusion is only built for the v3 text variant"
 
 _FENCE = re.compile(r"^\s*```")
 _CODE_LINE = re.compile(
@@ -261,7 +266,10 @@ excl_convs = set(miss_gold + miss_rep + miss_sil)
 # so no sibling turn from a held-out conversation leaks into silver training.
 gold_convs = set(df.loc[list(excl), "conversation_id"]) | excl_convs
 n_turn_level = len(excl | set(df.index[df["conversation_id"].isin(excl_convs)]))
-df["is_gold"] = df["conversation_id"].isin(gold_convs)
+if EXCLUSION == "turn":
+    df["is_gold"] = df.index.isin(list(excl)) | df["conversation_id"].isin(excl_convs)
+else:
+    df["is_gold"] = df["conversation_id"].isin(gold_convs)
 print(f"gold conversations: {len(gold_convs)} | rows excluded from silver pools: "
       f"{df['is_gold'].sum()} (was {n_turn_level} at turn-level; "
       f"+{df['is_gold'].sum()-n_turn_level} sibling turns now removed)")
@@ -305,6 +313,10 @@ if VARIANT == "pf":
     assert ge["text_pf384"].notna().all() and len(ge) == len(ref), "pf gold rows do not match v3clean"
     assert (ge["text"].astype(str).str[:300] == ref["text"].astype(str).str[:300]).all(), "v3 text mismatch after join"
     ge.to_parquet(OUT / "allef_gold_eval_v4pf_2026-09-12.parquet")
+elif EXCLUSION == "turn":
+    ref = pd.read_parquet(OUT / "allef_gold_eval_v3clean_2026-07-14.parquet")
+    assert len(ge) == len(ref), "gold eval rows differ from v3clean"
+    print("turn-level exclusion: gold eval frame identical in size to v3clean; not rewritten")
 else:
     ge.to_parquet(OUT / "allef_gold_eval_v3clean_2026-07-14.parquet")
 print(f"gold eval frame: {len(ge)} rows; splits: {ge['split'].value_counts().to_dict()}")
@@ -325,7 +337,17 @@ cols = ["domain", "conversation_id", "student_id", "turn_number", "turn_number_a
 pool = pool[cols].copy()
 for c in ("student_id", "conversation_id"):
     pool[c] = pool[c].astype(str)
-if VARIANT == "pf":
+if EXCLUSION == "turn":
+    ref = pd.read_parquet(OUT / "allef_distill_pool_v3clean_2026-07-14.parquet")
+    key = ["domain", "conversation_id", "turn_number"]
+    pool = pool.drop(columns=["subset"]).merge(ref[key + ["subset"]], on=key, how="left", validate="1:1")
+    n_new = int(pool["subset"].isna().sum()); pool["subset"] = pool["subset"].fillna("train")
+    assert len(pool) > len(ref), "turn-level pool should be larger than the conversation-level pool"
+    pool.to_parquet(OUT / "allef_distill_pool_v3clean_turnexcl_2026-09-14.parquet")
+    print(f"turn-level pool: {len(pool)} rows = v3clean {len(ref)} + {n_new} sibling turns of gold conversations (all -> train)")
+    print("subset sizes:"); print(pool.groupby(["domain", "subset"]).size().to_string())
+    print(f"saved -> {OUT}/allef_distill_pool_v3clean_turnexcl_2026-09-14.parquet")
+elif VARIANT == "pf":
     # inherit the v3clean row set, subset assignment and row order exactly (comparability with all v3clean runs)
     ref = pd.read_parquet(OUT / "allef_distill_pool_v3clean_2026-07-14.parquet")
     key = ["domain", "conversation_id", "turn_number"]
