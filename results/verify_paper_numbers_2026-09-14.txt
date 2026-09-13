@@ -23,6 +23,7 @@ evaluation turns: 300 of 320 (Dev 70, Cal 148, Holdout 82)
       Holdout (n=82): 78.0 / 0.749
   accuracy span across objectives: 0.3 points; macro-F1 span: 0.034
   input variant prose-first (pf384)            76.0 ± 7.6   0.656 ± 0.158   folds acc [81.6, 62.1, 75.5, 77.2, 83.9]
+  turn-level exclusion pool (leakage ablation) 73.2 ± 6.5   0.671 ± 0.103   folds acc [81.6, 62.1, 73.6, 71.9, 76.8]
 
 == Table 3: teacher, SF, CCD on the 300 evaluation turns (Protocol B fold mean ± SD) ==
   Teacher run (Opus, 0 labels), n=293:              66.6 / 0.655

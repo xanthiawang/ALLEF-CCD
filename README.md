@@ -15,7 +15,7 @@ itself and its LLM annotation pipeline were introduced in Wang and Liu (AIED 202
 | `data/` | Teacher labels for StudyChat (16,851 turns, Claude Opus 4) and Mathematics (28,665 turns, Claude Sonnet 4); the 320-turn StudyChat human gold with both coders' codes and the adjudicated code (its Holdout rows are the pre-revision snapshot; the canonical Holdout gold, which differs on 6 of 82 turns, is the `gold_code` column of the Holdout file); the 82-turn Holdout with the canonical gold and the separate Opus holdout run (Table 2). |
 | `splits/` | `teacher_pool_conversation_excluded.parquet`: the 39,409-turn training pool plus the 4,039-turn model-selection slice after conversation-level exclusion, each turn with its real-time-valid context window. `gold_eval_620.parquet`: the 320 StudyChat gold turns (Dev/Cal/Holdout) and the 300 Mathematics gold turns in the same input format. |
 | `scripts/` | Numbered in run order (see below). |
-| `results/` | Out-of-fold and holdout predictions with class probabilities for every configuration in the paper (`*_predsA.parquet` = Protocol A, `*_predsB.parquet` = Protocol B), training logs, the gold learning curve with per-turn predictions (`gold_learning_curve_2026-09-14_*`), the SF baselines, the bootstrap summary, the per-turn LLM annotator table behind Table 2 (`studychat_gold_320_llm_annotators_2026-09-14.csv`: adjudicated code, Opus teacher run, Opus holdout run, GPT-5.5, GPT-4o calibrated, prompt-example flag), the list of the 20 prompt-example turns, the Mathematics confusion matrix of the archived student, and `verify_paper_numbers_2026-09-14.txt`, the output of `scripts/08_verify_paper_numbers.py` from which every number in the paper is read. |
+| `results/` | Out-of-fold and holdout predictions with class probabilities for every configuration in the paper (`*_predsA.parquet` = Protocol A, `*_predsB.parquet` = Protocol B), training logs (including the turn-level-exclusion leakage ablation, `robertabase_sqrtinv_turnexcl_*`), the gold learning curve with per-turn predictions (`gold_learning_curve_2026-09-14_*`), the SF baselines, the bootstrap summary, the per-turn LLM annotator table behind Table 2 (`studychat_gold_320_llm_annotators_2026-09-14.csv`: adjudicated code, Opus teacher run, Opus holdout run, GPT-5.5, GPT-4o calibrated, prompt-example flag), the list of the 20 prompt-example turns, the Mathematics confusion matrix of the archived student, and `verify_paper_numbers_2026-09-14.txt`, the output of `scripts/08_verify_paper_numbers.py` from which every number in the paper is read. |
 | `figures/` | Fig. 1 (PDF/PNG), its text-free base image, and the provenance note. |
 | `models/` | Student checkpoints are GitHub Release assets; see `models/README.md`. |
 
@@ -34,6 +34,9 @@ python scripts/05_bootstrap_holdout.py; python scripts/06_aggregate.py         #
 python scripts/07_make_fig1.py                                                 # Fig. 1
 python scripts/08_verify_paper_numbers.py                                      # every number in Tables 2-4 and Section 4, from results/
 python scripts/01_build_pool.py --exclusion turn                               # leakage ablation pool (turn-level exclusion)
+python scripts/02_train_ccd.py --loss sqrtinv --model roberta-base \
+    --pool data/distill/allef_distill_pool_v3clean_turnexcl_2026-09-14.parquet \
+    --tag robertabase_sqrtinv_turnexcl                                         # leakage ablation run
 ```
 
 ## Evaluation turns

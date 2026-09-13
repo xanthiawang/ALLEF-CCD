@@ -96,6 +96,7 @@ for lab, dd, tag in [("Sqrt-inv-freq CE", S26, "robertabase_sqrtinv"), ("Unweigh
 log(f"  accuracy span across objectives: {max(v[0] for v in T3.values()) - min(v[0] for v in T3.values()):.1f} points; "
     f"macro-F1 span: {max(v[2] for v in T3.values()) - min(v[2] for v in T3.values()):.3f}")
 fs(PF, "bert_pred", "input variant prose-first (pf384)")
+fs(pb("robertabase_sqrtinv_turnexcl"), "bert_pred", "turn-level exclusion pool (leakage ablation)")
 
 log("\n== Table 3: teacher, SF, CCD on the 300 evaluation turns (Protocol B fold mean ± SD) ==")
 d = A[A.keep & A.opus_teacher_run.notna()]
