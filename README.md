@@ -1,7 +1,7 @@
 # ALLEF-CCD: Codebook-Conditioned Distillation for cognitive-offloading detection
 
 Companion package for the ICASSP 2027 submission *Enhancing Small Model Detection of Cognitive Offloading in
-Student–AI Dialogue through Codebook-Conditioned Distillation* (Zixin Wang et al., under review). This repository
+Student–AI Dialogue through Codebook-Conditioned Distillation* (Zixin Wang, under review). This repository
 holds only what that paper uses: the teacher prompts, the teacher labels, the human gold, the leak-free splits, the
 training and evaluation scripts, every prediction file behind the tables, and the figure. The ALLEF coding scheme
 itself and its LLM annotation pipeline were introduced in Wang and Liu (AIED 2026, CCIS, doi

@@ -49,3 +49,14 @@ Not generated. The `P_t` band must be verbatim prompt text and current image mod
 monospace strings reliably; a direct-text base would have to be re-checked character by character against the
 source prompt, which is slower and less safe than the vector layer. Recorded here as a deliberate deviation
 from the skill's default comparison step.
+
+## 2026-09-14 revision: 9 pt text
+
+ICASSP 2027 Paper Kit: "Use a font size that is no smaller than 9 points throughout the paper, including figure captions."
+All figure text raised from a nominal 7 pt to 9.2 pt (prints at 9.1 pt after the 0.994 LaTeX scale; math sub/superscripts
+scale with their base as in the body text). Layout changes forced by the larger type: "Codebook B (v2.2)" and
+"Turn x_i + context c_i" set on two lines; "Human gold G" moved up and right; the exclusion label shifted left; L_2 set to
+the left of the gold arrow; "Code y'_i" right-aligned above the output tag; the P_t band re-wrapped to four lines of at most
+43 monospace characters (header shortened to "output line"). Overlap check (nature-figure detect_overlaps, padding 2 px):
+no hits; visual review of fig1_ccd_review.png: no touching labels. Saved size 245.4 x 158.7 pt. The 7 pt version is kept as
+archive_fig1_ccd_fs7_2026-09-13.pdf with its script archive_make_fig1_2026-09-13_fs7.py.bak.

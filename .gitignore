@@ -3,3 +3,4 @@ models/*/
 *.pt
 __pycache__/
 .DS_Store
+figures/fig1_ccd_review.png
