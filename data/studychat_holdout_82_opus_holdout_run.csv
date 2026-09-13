@@ -1,0 +1,474 @@
+conversation_id,turn_number,student_text,gold_code,llm_code
+fc4814de-dd6a-47c3-ac99-f5737d198463,1,Come up with a fairy tale for me! It should be about friendship and loss and seem as if it's from India historically.,OT,OT
+059b5434-0bfe-49ad-b837-98dec81332be,1,"for a bigram model `n=2` we estimate the joint probability as
+
+$$P(X_1=x_1, X_2=x_2, X_3=x_3, X_4=x_4) = P(x_1) \cdot P(x_2 \mid x_1) \cdot P(x_3 \mid x_2) \cdot P(x_4 \mid x_3)$$
+
+generalize this for any n",AL5,AL1
+059b5434-0bfe-49ad-b837-98dec81332be,2,"P(X_1 = x_1, X_2 = x_2, \dots, X_T = x_T) = \prod_{t=1}^{n-1} P(x_t \mid x_1, \dots, x_{t-1}) \cdot \prod_{t=n}^{T} P(x_t \mid x_{t-n+1}, \dots, x_{t-1})
+
+is this correct?",AL2,AL2
+059b5434-0bfe-49ad-b837-98dec81332be,3,show your markdown as actual formulas,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,1,how to import pytorch into python,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,2,what linux command to check python version,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,3,how to update python on homebrew,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,4,how to check if pytorch is installed,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,5,"how to fix the problem ""this environment is externally managed",CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,6,how to convert a pytorch tensor back to a numpy array,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,7,how to create a tensor of the same dimensions of a previous tensor with random values between 0 and 1,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,8,"what does this error mean: RuntimeError: ""check_uniform_bounds"" not implemented for 'Long'",AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,9,access first row of pytorch tensor,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,10,access first row of column,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,11,access first column,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,12,access last column,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,13,Update the tensor so that index 1 column is all zeros and print the tensor,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,14,how to reshape tensor into 1d,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,15,how to reshape a 4x4 tensor into a 2x8 tensor,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,16,torch.permute() method,CO1,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,17,"if I have a tensor, x = torch.randn(2, 3, 4), how to swap dimensions in order 2, 0, 1 using the permute method",CO1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,18,Can you explain this error in python: RuntimeError: Boolean value of Tensor with more than one value is ambiguous,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,19,how to Concatenate two tensors row wise,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,20,"How to Stack tensors one, two and three along the default dimension (dim=0)",CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,21,Add 5 to all values of a tensor,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,22,"Given two tensors, do an element wise multiplication",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,23,compute the dot product of two tensors,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,24,compute the dot product of 2 2d tensors,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,25,"Predict the shape:
+
+ a = torch.ones((3, 1))
+ b = torch.ones((1, 4))
+ result = a + b",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,26,"Predict the shape:
+
+ a = torch.ones((2, 3))
+ b = torch.ones((2, 1))
+ result = a + b",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,27,"What is the output?
+
+ a = torch.tensor([[1], [2], [3]]) # shape (3, 1)
+ b = torch.tensor([10, 20]) # shape (2,)
+ result = a + b",CO1,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,28,"What is the output if there is broadcasting?
+
+ a = torch.tensor([[1], [2], [3]]) # shape (3, 1)
+ b = torch.tensor([10, 20]) # shape (2,)
+ result = a + b",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,29,"Will the following code run even with broadcasting? Please explain why or why not.
+ 
+ 
+ a = torch.ones((2, 2))
+ b = torch.ones((3, 1))
+
+ result = a + b",AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,30,how to install pandas using conda,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,31,terminal said that install is invalid syntax,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,32,how to go into a python environment in your terminal,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,33,how to instal sklearn in conda,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,34,how to install matplotlib using conda,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,35,use StandardScaler() to Normalize numerical features in X,CO1,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,36,what is the columns parameter,AL5,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,37,how to Normalize numerical features in X using Standard Scaler from sklearn if X has both numerical and categorical features,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,38,how to get the columns of a dataframe,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,39,"how to create a multi-layer perceptron with the following specification.
+We will have a total of three fully connected layers.
+
+
+1. Fully Connected Layer of size (7, 64) followed by ReLU
+2. Full Connected Layer of Size (64, 32) followed by ReLU
+3. Full Connected Layer of Size (32, 1) followed by Sigmoid",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,40,how to write training and testing loops for the perceptron above,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,41,Plot the Training Loss Curve by (Epoch # on x-axis and loss on y-axis),AL5,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,42,"please explain this error: ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.",AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,43,explain this error: RuntimeError: Found dtype Long but expected Float,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,44,"def train_model(train_loader, num_epochs, learning_rate):
+ # we have provided the loss and optimizer below
+ criterion = nn.BCELoss()
+ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+ train_losses = []
+
+ for epoch in range(num_epochs):
+ total_loss = 0
+ # TODO: Compute the Gradient and Loss by iterating train_loader
+ for i, (inputs, labels) in enumerate(train_loader):
+ outputs = model(inputs) # Pass inputs through the model
+ loss = criterion(outputs, labels) # Compute loss between predictions and actual labels
+ optimizer.zero_grad() # Reset gradients to zero before backpropagation
+ loss.backward() # Compute gradients of the loss with respect to model parameters
+ optimizer.step() # Update model parameters using computed gradients
+
+ train_losses.append(loss.item())
+
+ # TODO: Print and store loss at each epoch
+ if (epoch + 1) % 10 == 0: # Print every 10 epochs
+ print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
+ 
+ return train_losses
+
+num_epochs = 20
+learning_rate = 0.001
+train_losses = train_model(train_loader, num_epochs, learning_rate)
+
+why is this code wrong?",AL2,AL2
+0971aed1-3287-4fe9-b0aa-88684a037d4b,45,"def train_model(train_loader, num_epochs, learning_rate):
+ # we have provided the loss and optimizer below
+ criterion = nn.BCELoss()
+ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+ train_losses = []
+
+ for epoch in range(num_epochs):
+ total_loss = 0
+ # TODO: Compute the Gradient and Loss by iterating train_loader
+ for i, (inputs, labels) in enumerate(train_loader):
+ outputs = model(inputs) # Pass inputs through the model
+ loss = criterion(outputs, labels) # Compute loss between predictions and actual labels
+ optimizer.zero_grad() # Reset gradients to zero before backpropagation
+ loss.backward() # Compute gradients of the loss with respect to model parameters
+ optimizer.step() # Update model parameters using computed gradients
+
+ train_losses.append(loss.item())
+
+ # TODO: Print and store loss at each epoch
+ if (epoch + 1) % 10 == 0: # Print every 10 epochs
+ print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}')
+ 
+ return train_losses
+
+num_epochs = 20
+learning_rate = 0.001
+train_losses = train_model(train_loader, num_epochs, learning_rate)
+
+why is this code giving this error: ValueError: Using a target size (torch.Size([16])) that is different to the input size (torch.Size([16, 1])) is deprecated. Please ensure they have the same size.",AL2,AL2
+0971aed1-3287-4fe9-b0aa-88684a037d4b,46,"def train_model(train_loader, num_epochs, learning_rate):
+ # we have provided the loss and optimizer below
+ criterion = nn.BCELoss()
+ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+ train_losses = []
+
+ for epoch in range(num_epochs):
+ total_loss = 0
+ # TODO: Compute the Gradient and Loss by iterating train_loader
+ for i, (inputs, labels) in enumerate(train_loader):
+ # Forward pass: Compute model predictions
+ outputs = model(inputs).squeeze() # Pass inputs through the model
+ loss = criterion(outputs, labels) # Compute loss between predictions and actual labels
+
+ # Backward pass and optimization
+ optimizer.zero_grad() # Reset gradients to zero before backpropagation
+ loss.backward() # Compute gradients of the loss with respect to model parameters
+ optimizer.step() # Update model parameters using computed gradients
+
+ train_losses.append(loss.item())
+
+ # TODO: Print and store loss at each epoch
+ # Print loss every 10 epochs to monitor training progress
+ if (epoch + 1) % 10 == 0:
+ print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}') # Print epoch number and current loss value
+ 
+ return train_losses
+
+num_epochs = 20
+learning_rate = 0.001
+train_losses = train_model(train_loader, num_epochs, learning_rate)
+Please explain and fix why I'm getting this error: RuntimeError: Found dtype Long but expected Float",AL1,AL2
+0971aed1-3287-4fe9-b0aa-88684a037d4b,47,How to use StandardScaler in sklearn to Normalize numerical features in X to be in between 0 and 1,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,48,"def train_model(train_loader, num_epochs, learning_rate):
+ # we have provided the loss and optimizer below
+ criterion = nn.BCELoss()
+ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+ train_losses = []
+
+ for epoch in range(num_epochs):
+ total_loss = 0
+ # TODO: Compute the Gradient and Loss by iterating train_loader
+ for i, (inputs, labels) in enumerate(train_loader):
+ labels = labels.float()
+ # Forward pass: Compute model predictions
+ outputs = model(inputs).squeeze() # Pass inputs through the model
+ loss = criterion(outputs, labels) # Compute loss between predictions and actual labels
+
+ # Backward pass and optimization
+ optimizer.zero_grad() # Reset gradients to zero before backpropagation
+ loss.backward() # Compute gradients of the loss with respect to model parameters
+ optimizer.step() # Update model parameters using computed gradients
+
+ train_losses.append(loss.item())
+
+ # TODO: Print and store loss at each epoch
+ # Print loss every 10 epochs to monitor training progress
+ if (epoch + 1) % 10 == 0:
+ print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}') # Print epoch number and current loss value
+ 
+ return train_losses
+
+num_epochs = 20
+learning_rate = 0.001
+train_losses = train_model(train_loader, num_epochs, learning_rate)
+
+Why am I getting the error: RuntimeError: all elements of input should be between 0 and 1",AL1,AL2
+0971aed1-3287-4fe9-b0aa-88684a037d4b,49,I am applying a sigmoid function on the final layer but still getting the error,AL2,AL5
+0971aed1-3287-4fe9-b0aa-88684a037d4b,50,"class TitanicMLP(nn.Module):
+ def __init__(self):
+ super(TitanicMLP, self).__init__()
+ # TODO: Define Layers
+ self.fc1 = nn.Linear(7, 64)
+ self.relu1 = nn.ReLU()
+ self.fc2 = nn.Linear(64, 32)
+ self.relu2 = nn.ReLU()
+ self.fc3 = nn.Linear(32, 1)
+ self.sigmoid = nn.Sigmoid()
+
+ def forward(self, x):
+ # TODO: Complete implemenation of forward
+ x = self.fc1(x)
+ x = self.relu1(x)
+ x = self.fc2(x)
+ x = self.relu2(x)
+ x = self.fc3(x)
+ x = self.sigmoid(x)
+ return x
+model = TitanicMLP()
+print(model)
+
+def train_model(train_loader, num_epochs, learning_rate):
+ # we have provided the loss and optimizer below
+ criterion = nn.BCELoss()
+ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+ train_losses = []
+
+ for epoch in range(num_epochs):
+ total_loss = 0
+ # TODO: Compute the Gradient and Loss by iterating train_loader
+ for i, (inputs, labels) in enumerate(train_loader):
+ labels = labels.float()
+ # Forward pass: Compute model predictions
+ outputs = model(inputs).squeeze() # Pass inputs through the model
+ loss = criterion(outputs, labels) # Compute loss between predictions and actual labels
+
+ # Backward pass and optimization
+ optimizer.zero_grad() # Reset gradients to zero before backpropagation
+ loss.backward() # Compute gradients of the loss with respect to model parameters
+ optimizer.step() # Update model parameters using computed gradients
+
+ total_loss += loss.item()
+ 
+ average_loss = total_loss / len(train_loader)
+ train_losses.append(average_loss)
+
+ # TODO: Print and store loss at each epoch
+ # Print loss every 10 epochs to monitor training progress
+ if (epoch + 1) % 10 == 0:
+ print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}') # Print epoch number and current loss value
+ 
+ return train_losses
+
+num_epochs = 20
+learning_rate = 0.001
+train_losses = train_model(train_loader, num_epochs, learning_rate)
+
+Why when I call train_model in the last line, I get this error: RuntimeError: all elements of input should be between 0 and 1",AL1,AL2
+0971aed1-3287-4fe9-b0aa-88684a037d4b,51,why are some of the elements in the outputs are nan?,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,52,why is one of my inputs nan?,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,53,how to check how many rows have missing values in a specified column,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,54,how to handle missing values in a dataset,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,55,what is inplace,AL1,AL1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,56,"please fill in the TODO: 
+def test_model():
+ correct = 0
+ total = 0
+
+ # When we are doing inference on a model, we do not need to keep track of gradients
+ # torch.no_grad() indicates to pytorch to not store gradients for more efficent inference
+ with torch.no_grad():
+ # TODO: Iterate through test_loader and perform a forward pass to compute predictions
+
+ print(f""Test Accuracy: {100 * correct / total:.2f}%"")
+
+test_model()",CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,57,how to hyper-parameter tune this model,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,58,can you combine all of these into one code block?,CO3,CO3
+0971aed1-3287-4fe9-b0aa-88684a037d4b,59,how to experiment with different settings for training a multi-layer perception?,CO1,CO1
+0971aed1-3287-4fe9-b0aa-88684a037d4b,60,write a markdown table with 5 rows and 2 columns,CO3,CO3
+3d374bec-6c56-4be9-8b24-e784117480d1,1,What does a cross validation technique do?,AL1,AL1
+3d374bec-6c56-4be9-8b24-e784117480d1,2,"sciktit learn, how can I use cross validation function",CO1,CO1
+3d374bec-6c56-4be9-8b24-e784117480d1,3,using a linear regression model,AL5,AL5
+187e09da-c1ab-4ccd-a373-08fda34c8402,1,"for the ucs method what does the below mean:
+Update build_tree() to store the path cost. The path cost is the inverse frequencies of that letter/char following that prefix of characters.
+Using the inverse of these frequencies creates a lower path cost for more frequent character sequences.",AL1,AL1
+f7d7e2d3-7f98-415c-9d80-1b53a97a178f,1,"Provide me with a pandas script to apply this renaming to all the columns of my dataset where the left is the current column names of my dataset and the right is the preferred column names:
+age - age 
+ bp - blood pressure
+ sg - specific gravity
+ al -  albumin
+ su - sugar
+ rbc - red blood cells
+ pc - pus cell
+ pcc - pus cell clumps
+ ba - bacteria
+ bgr - blood glucose random
+ bu - blood urea
+ sc - serum creatinine
+ sod - sodium
+ pot - potassium
+ hemo - hemoglobin
+ pcv - packed cell volume
+ wc - white blood cell count
+ rc - red blood cell count
+ htn - hypertension
+ dm - diabetes mellitus
+ cad - coronary artery disease
+ appet - appetite
+ pe - pedal edema
+ ane - anemia
+ class - class",CO3,CO3
+f7d7e2d3-7f98-415c-9d80-1b53a97a178f,2,Convert the following SQL query into a pandas query,CO3,CO3
+f7d7e2d3-7f98-415c-9d80-1b53a97a178f,3,"SELECT Target, COUNT(*) AS count
+FROM your_table_name
+GROUP BY Target;",CO3,CO3
+d3f12455-cef0-4297-b13b-9fa5b9e16597,1,"convert this to markdonw Experiment Learning Rate Optimizer Hidden Layers Final Training Loss
+1 0.01 Adam [64, 32] 0.245
+2 0.001 Adam [128, 64] 0.180
+3 0.0005 SGD [64, 64, 32] 0.210
+4 0.005 Adam [256, 128, 64] 0.165
+5 0.01 SGD [128, 64, 32] 0.230",CO3,CO3
+f0f56c47-6509-4111-b604-9e3c9c0e6754,1,"I have a implementation of suggest_bfs, however it gives me the wrong output. The desired output I want is the, thee, thou, that, thag, there, their, though, thought, through
+
+please fix my code, such that it gives this result, also use stacks and queues for the implementation. 
+
+def suggest_bfs(self, prefix):
+ node = self.root
+ # Traverse the tree to find the last node of the prefix
+ for char in prefix:
+ if char not in node.children:
+ return []
+ node = node.children[char]
+
+ suggestions = []
+ queue = deque([(node, prefix)]) # Store nodes along with the word formed so far
+
+ while queue:
+ current_node, current_word = queue.popleft()
+ if current_node.is_end_of_word:
+ suggestions.append(current_word)
+ for char, child_node in current_node.children.items():
+ queue.append((child_node, current_word + char))
+
+ return suggestions",CO3,CO3
+f0f56c47-6509-4111-b604-9e3c9c0e6754,2,"def suggest_bfs(self, prefix):
+ node = self.root
+ # Traverse the tree to find the last node of the prefix
+ for char in prefix:
+ if char not in node.children:
+ return []
+ node = node.children[char]
+ suggestions = []
+ queue = deque([(node, prefix)]) # Store nodes along with the word formed so far
+ while queue:
+ current_node, current_word = queue.popleft()
+ if current_node.is_end_of_word:
+ suggestions.append(current_word)
+ for char, child_node in current_node.children.items():
+ queue.append((child_node, current_word + char))
+ # Sort the suggestions and return the first 10 results
+ suggestions.sort()
+ return suggestions
+
+fix the code, 
+i want the ouput to be the, thee, thou, that, thag, there, their, though, thought, through
+but my current code outputs, thag, that, the, thee, their, there, thou, though, thought, through",AL5,CO3
+f0f56c47-6509-4111-b604-9e3c9c0e6754,3,"def suggest_ucs(self, prefix):
+ node = self.root
+ for char in prefix:
+ if char not in node.children:
+ return [] # No suggestions if prefix is not found
+ node = node.children[char]
+
+ suggestions = []
+ priority_queue = []
+
+ # Initialize priority queue with direct children of the matched prefix
+ for char, child_node in node.children.items():
+ cost = 1 / (child_node.freq + 1) # Assuming child_node has a freq attribute for reference
+ heapq.heappush(priority_queue, (cost, child_node, prefix + char))
+
+ # Suggestion limit
+ MAX_SUGGESTIONS = 5
+
+ # Using a set to avoid duplicates in suggestions
+ seen_words = set()
+
+ while priority_queue and len(suggestions) < MAX_SUGGESTIONS:
+ cost, current_node, current_word = heapq.heappop(priority_queue)
+ 
+ if current_node.is_end_of_word and current_word not in seen_words:
+ suggestions.append(current_word)
+ seen_words.add(current_word)
+
+ # Add children to the priority queue
+ for char, child_node in current_node.children.items():
+ new_cost = cost + (1 / (child_node.freq + 1))
+ heapq.heappush(priority_queue, (new_cost, child_node, current_word + char))
+
+ return suggestions
+
+
+My suggest_ucs, implementaion is not outputting anything when i type ""th"" in the gui, therefore could you please double check to make sure I did it right",AL2,AL2
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,1,"If a training loop for my RNN looks like the following, how would a testing loop look?
+for epoch in range(num_epochs):
+ total_loss, correct_predictions, total_predictions = 0, 0, 0
+
+ hidden = model.init_hidden(batch_size)
+
+ for batch_idx, (batch_inputs, batch_targets) in tqdm(enumerate(train_loader), total=total_batches, desc=f""Epoch {epoch+1}/{num_epochs}""):
+ batch_inputs, batch_targets = batch_inputs.to(device), batch_targets.to(device)
+
+ output, hidden = model(batch_inputs, hidden)
+
+ hidden = hidden.detach()
+
+ loss = criterion(output.view(-1, output_size), batch_targets.view(-1)) # Flatten the outputs and targets for CrossEntropyLoss
+ optimizer.zero_grad()
+
+ loss.backward()
+
+ optimizer.step()
+
+ with torch.no_grad():
+ # Calculate accuracy
+ _, predicted_indices = torch.max(output, dim=2) # Predicted characters
+
+ correct_predictions += (predicted_indices == batch_targets).sum().item()
+ total_predictions += batch_targets.size(0) * batch_targets.size(1) # Total items in this batch
+
+ total_loss += loss.item()
+
+ avg_loss = total_loss / len(train_loader)
+ accuracy = correct_predictions / total_predictions * 100 # Convert to percentage
+ print(f""Epoch [{epoch+1}/{num_epochs}], Loss: {avg_loss:.4f}, Accuracy: {accuracy:.2f}%"")",CO3,AL1
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,2,Is there a way to save a trained model like this so I can reload it later?,CO1,CO1
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,3,What is the .pth extension?,AL1,CO1
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,4,"My assignment instructions tell me to do the following:
+1. Re-run Cell #5 to re-create character mappings for `warandpeace.txt`
+2. Re-run Cell #7 to re-initialize hyperparameters
+3. Re-run Cell #8 to split and create training and testing data with `warandpeace.txt` as your corpus
+4. Re-run Cell #9 to set up data loaders with `warandpeace.txt` data
+5. Re-run Cell #12 to re-initialize a new model object (maybe ask yourself why can't you use the previous model that was trained on the simple `""abc...""` corpus)
+6. Re-run Cell #13 to train the new model with `warandpeace.txt` data.
+
+My question is to do with the instruction to ""re-initialize a new model object (maybe ask yourself why can't you use the previous model that was trained on the simple `""abc...""` corpus)"". This is in reference to the fact that I first trained the model on a simple training set that was just the alphabet repeated 100 times and the new training set is on the novel ""War and Peace"", a much more complex dataset. But when I simply replace the sequence variable (that is turned into the training and testing sets) to be the novel, everything still runs and works out. Why would the instructions tell me to re-initialize a new model object?",AL2,AL1
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,5,"If I'm still instructed to use the same hyperparameters, then why would the model object have to be initialized differently?",AL2,AL1
+a64f2e4e-2344-4952-8e05-8b3126cc7c49,6,"How do I get input from user like with ""input()"" in a python notebook? It seems like it just doesn't work when I run the cell?",CO1,CO1
+68719d58-40a1-4ad0-b928-013c5bd065b8,1,"sequence_length =
+stride = 
+embedding_dim = 
+hidden_size = 
+learning_rate = 
+num_epochs = 
+batch_size = 
+vocab_size = len(vocab)
+input_size = len(vocab)
+output_size = len(vocab)",CO3,CO3

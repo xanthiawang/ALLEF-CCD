@@ -1,0 +1,45 @@
+tag=robertabase_sqrtinv_studychatonly device=mps model=roberta-base loss=sqrtinv | train 15,001 | silver_val 1,530 | epochs 6 | pool=data/distill/allef_distill_pool_v3clean_2026-07-14.parquet gold=data/distill/allef_gold_eval_v3clean_2026-07-14.parquet text_col=text maxlen=384 bs=32x1 lr=2.5e-05
+class weights (sqrtinv): OT=1.62 CO1=0.45 CO2=1.39 CO3=0.31 AL1=0.45 AL2=0.73 AL4=2.39 AL5=0.67
+  ep1 step 200/469 loss 1.761 (3.4m)
+  ep1 step 400/469 loss 1.495 (6.8m)
+epoch 1: silver_val kappa8 = 0.575
+  -> saved (best silver)
+  ep2 step 200/469 loss 0.977 (11.6m)
+  ep2 step 400/469 loss 0.979 (15.1m)
+epoch 2: silver_val kappa8 = 0.580
+  -> saved (best silver)
+  ep3 step 200/469 loss 0.791 (19.9m)
+  ep3 step 400/469 loss 0.795 (23.3m)
+epoch 3: silver_val kappa8 = 0.615
+  -> saved (best silver)
+  ep4 step 200/469 loss 0.623 (28.1m)
+  ep4 step 400/469 loss 0.635 (31.5m)
+epoch 4: silver_val kappa8 = 0.598
+  ep5 step 200/469 loss 0.539 (36.3m)
+  ep5 step 400/469 loss 0.515 (39.8m)
+epoch 5: silver_val kappa8 = 0.612
+  ep6 step 200/469 loss 0.444 (44.6m)
+  ep6 step 400/469 loss 0.427 (48.0m)
+epoch 6: silver_val kappa8 = 0.608
+best silver epoch 3 (0.615) -> /Users/zixin/Desktop/StudyChat_Project/models/icassp2027_robertabase_sqrtinv_studychatonly_silver
+
+PROTOCOL A: adapt on dev+cal, evaluate holdout + bastani300
+  holdout (n=82): acc=0.756 macroF1=0.703 kappa8=0.659 family=0.599 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 1.00  CO1 0.87  CO2 0.00  CO3 0.75  AL1 0.67  AL2 0.60  AL4 0.00  AL5 0.33
+  bastani300 (n=300): acc=0.407 macroF1=0.378 kappa8=0.306 family=0.242 | Opus kappa8=0.804 (n=300)
+    per-code F1: OT 0.48  CO1 0.36  CO2 0.46  CO3 0.58  AL1 0.48  AL2 0.25  AL4 0.00  AL5 0.04
+
+PROTOCOL B: 5-fold StratifiedGroupKFold over 320 gold (dev+cal+holdout), grouped by student
+  silver-only (no gold adaptation), 320 (n=320): acc=0.709 macroF1=0.621 kappa8=0.615 family=0.588 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 0.89  CO1 0.76  CO2 0.44  CO3 0.78  AL1 0.61  AL2 0.60  AL4 0.25  AL5 0.62
+  fold 0: train 243 test 77 students_test=8 kappa8=0.710
+  fold 1: train 259 test 61 students_test=9 kappa8=0.475
+  fold 2: train 260 test 60 students_test=14 kappa8=0.550
+  fold 3: train 260 test 60 students_test=12 kappa8=0.640
+  fold 4: train 258 test 62 students_test=12 kappa8=0.659
+  5-fold OOF, 320 (n=320): acc=0.716 macroF1=0.656 kappa8=0.617 family=0.552 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 0.89  CO1 0.78  CO2 0.67  CO3 0.79  AL1 0.59  AL2 0.55  AL4 0.33  AL5 0.65
+  5-fold OOF, holdout subset (82) (n=82): acc=0.756 macroF1=0.689 kappa8=0.656 family=0.617 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 1.00  CO1 0.89  CO2 0.00  CO3 0.75  AL1 0.62  AL2 0.55  AL4 0.00  AL5 0.33
+
+DONE robertabase_sqrtinv_studychatonly in 52.8 min

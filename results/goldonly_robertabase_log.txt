@@ -1,0 +1,9 @@
+fold 0: train 243 test 77 kappa8=0.155 (2.3m)
+fold 1: train 259 test 61 kappa8=0.217 (4.8m)
+fold 2: train 260 test 60 kappa8=0.135 (7.2m)
+fold 3: train 260 test 60 kappa8=0.311 (9.7m)
+fold 4: train 258 test 62 kappa8=0.155 (12.1m)
+GOLD-ONLY SF 5-fold OOF (n=320): acc=0.388 macroF1=0.268 kappa8=0.191 family=0.058
+  per-code F1: OT 0.50  CO1 0.47  CO2 0.00  CO3 0.54  AL1 0.13  AL2 0.24  AL4 0.00  AL5 0.26
+  holdout subset (82): kappa8=0.177
+DONE

@@ -1,0 +1,10 @@
+config: epochs=20 lr=3e-05 bs=16 input=context tag=goldonly_ctx_e20
+fold 0: train 243 test 77 kappa8=0.307 (4.0m)
+fold 1: train 259 test 61 kappa8=0.159 (8.1m)
+fold 2: train 260 test 60 kappa8=0.083 (12.3m)
+fold 3: train 260 test 60 kappa8=0.418 (16.5m)
+fold 4: train 258 test 62 kappa8=0.457 (20.7m)
+GOLD-ONLY SF 5-fold OOF (n=320): acc=0.463 macroF1=0.346 kappa8=0.293 family=0.192
+  per-code F1: OT 0.75  CO1 0.58  CO2 0.00  CO3 0.54  AL1 0.34  AL2 0.19  AL4 0.00  AL5 0.37
+  holdout subset (82): kappa8=0.313
+DONE

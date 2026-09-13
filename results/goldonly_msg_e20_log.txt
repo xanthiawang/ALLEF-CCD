@@ -1,0 +1,10 @@
+config: epochs=20 lr=3e-05 bs=16 input=message tag=goldonly_msg_e20
+fold 0: train 243 test 77 kappa8=0.595 (4.3m)
+fold 1: train 259 test 61 kappa8=0.329 (8.4m)
+fold 2: train 260 test 60 kappa8=0.404 (12.5m)
+fold 3: train 260 test 60 kappa8=0.360 (67.4m)
+fold 4: train 258 test 62 kappa8=0.546 (70.7m)
+GOLD-ONLY SF 5-fold OOF (n=320): acc=0.600 macroF1=0.413 kappa8=0.462 family=0.369
+  per-code F1: OT 0.75  CO1 0.72  CO2 0.00  CO3 0.69  AL1 0.57  AL2 0.24  AL4 0.00  AL5 0.34
+  holdout subset (82): kappa8=0.529
+DONE

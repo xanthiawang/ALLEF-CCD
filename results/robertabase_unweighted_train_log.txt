@@ -1,0 +1,70 @@
+tag=robertabase_unweighted device=mps model=roberta-base loss=unweighted | train 39,409 | silver_val 4,039 | epochs 6
+class weights (sqrtinv): OT=1.22 CO1=0.47 CO2=0.74 CO3=0.51 AL1=0.78 AL2=0.84 AL4=2.17 AL5=1.26
+  ep1 step 200/1232 loss 1.778 (3.6m)
+  ep1 step 400/1232 loss 1.540 (7.1m)
+  ep1 step 600/1232 loss 1.389 (10.7m)
+  ep1 step 800/1232 loss 1.298 (14.2m)
+  ep1 step 1000/1232 loss 1.233 (17.7m)
+  ep1 step 1200/1232 loss 1.189 (21.3m)
+epoch 1: silver_val kappa8 = 0.546
+  -> saved (best silver)
+  ep2 step 200/1232 loss 0.881 (26.0m)
+  ep2 step 400/1232 loss 0.876 (29.6m)
+  ep2 step 600/1232 loss 0.870 (33.1m)
+  ep2 step 800/1232 loss 0.865 (36.7m)
+  ep2 step 1000/1232 loss 0.860 (40.2m)
+  ep2 step 1200/1232 loss 0.854 (43.7m)
+epoch 2: silver_val kappa8 = 0.578
+  -> saved (best silver)
+  ep3 step 200/1232 loss 0.741 (48.4m)
+  ep3 step 400/1232 loss 0.720 (51.9m)
+  ep3 step 600/1232 loss 0.723 (55.5m)
+  ep3 step 800/1232 loss 0.721 (59.0m)
+  ep3 step 1000/1232 loss 0.723 (62.5m)
+  ep3 step 1200/1232 loss 0.722 (66.0m)
+epoch 3: silver_val kappa8 = 0.573
+  ep4 step 200/1232 loss 0.624 (70.7m)
+  ep4 step 400/1232 loss 0.611 (74.2m)
+  ep4 step 600/1232 loss 0.618 (77.7m)
+  ep4 step 800/1232 loss 0.616 (81.2m)
+  ep4 step 1000/1232 loss 0.614 (84.7m)
+  ep4 step 1200/1232 loss 0.619 (88.2m)
+epoch 4: silver_val kappa8 = 0.578
+  -> saved (best silver)
+  ep5 step 200/1232 loss 0.540 (92.9m)
+  ep5 step 400/1232 loss 0.533 (96.4m)
+  ep5 step 600/1232 loss 0.534 (100.0m)
+  ep5 step 800/1232 loss 0.531 (103.5m)
+  ep5 step 1000/1232 loss 0.531 (107.0m)
+  ep5 step 1200/1232 loss 0.528 (110.5m)
+epoch 5: silver_val kappa8 = 0.583
+  -> saved (best silver)
+  ep6 step 200/1232 loss 0.461 (115.2m)
+  ep6 step 400/1232 loss 0.464 (118.7m)
+  ep6 step 600/1232 loss 0.460 (122.3m)
+  ep6 step 800/1232 loss 0.458 (125.8m)
+  ep6 step 1000/1232 loss 0.453 (129.3m)
+  ep6 step 1200/1232 loss 0.456 (132.9m)
+epoch 6: silver_val kappa8 = 0.580
+best silver epoch 5 (0.583) -> /Users/zixin/Desktop/StudyChat_Project/models/icassp2027_robertabase_unweighted_silver
+
+PROTOCOL A: adapt on dev+cal, evaluate holdout + bastani300
+  holdout (n=82): acc=0.720 macroF1=0.675 kappa8=0.613 family=0.675 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 1.00  CO1 0.82  CO2 0.00  CO3 0.69  AL1 0.71  AL2 0.55  AL4 0.00  AL5 0.29
+  bastani300 (n=300): acc=0.570 macroF1=0.484 kappa8=0.484 family=0.620 | Opus kappa8=0.804 (n=300)
+    per-code F1: OT 0.70  CO1 0.46  CO2 0.73  CO3 0.59  AL1 0.68  AL2 0.57  AL4 0.00  AL5 0.14
+
+PROTOCOL B: 5-fold StratifiedGroupKFold over 320 gold (dev+cal+holdout), grouped by student
+  silver-only (no gold adaptation), 320 (n=320): acc=0.713 macroF1=0.671 kappa8=0.611 family=0.562 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 0.89  CO1 0.76  CO2 0.50  CO3 0.77  AL1 0.67  AL2 0.59  AL4 0.67  AL5 0.52
+  fold 0: train 243 test 77 students_test=8 kappa8=0.698
+  fold 1: train 259 test 61 students_test=9 kappa8=0.465
+  fold 2: train 260 test 60 students_test=14 kappa8=0.682
+  fold 3: train 260 test 60 students_test=12 kappa8=0.644
+  fold 4: train 258 test 62 students_test=12 kappa8=0.701
+  5-fold OOF, 320 (n=320): acc=0.738 macroF1=0.689 kappa8=0.648 family=0.623 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 0.89  CO1 0.79  CO2 0.50  CO3 0.80  AL1 0.69  AL2 0.61  AL4 0.67  AL5 0.56
+  5-fold OOF, holdout subset (82) (n=82): acc=0.744 macroF1=0.735 kappa8=0.647 family=0.779 | Opus kappa8=0.734 (n=82)
+    per-code F1: OT 1.00  CO1 0.83  CO2 0.00  CO3 0.68  AL1 0.74  AL2 0.71  AL4 0.00  AL5 0.44
+
+DONE robertabase_unweighted in 137.4 min
