@@ -51,6 +51,11 @@ evaluation turns: 300 of 320 (Dev 70, Cal 148, Holdout 82)
     Protocol A seed 2028: Holdout 79.3 / 0.759; Math 66.0 / 0.574
     Protocol A DistilRoBERTa: Holdout 70.7 / 0.643; Math 56.0 / 0.502
 
+== Codebook-boundary error concentration (Section 4.2, point 3) ==
+  Sonnet teacher, Mathematics (compact codebook)        29 of  49 errors = 59% on CO1/CO3 and AL1/CO1
+  student, Mathematics (learned from those labels)      48 of 120 errors = 40% on CO1/CO3 and AL1/CO1
+  same student, StudyChat (full codebook)               13 of  75 errors = 17% on CO1/CO3 and AL1/CO1
+
 == Table 4: student size and gold volume (pooled OOF on the 300 evaluation turns) ==
   DistilRoBERTa 82M   0%:   70.0 / 0.562
   DistilRoBERTa 82M 100%:   74.0 / 0.668

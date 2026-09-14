@@ -144,6 +144,22 @@ for tag, lab in [("robertabase_sqrtinv", "seed 2026"), ("robertabase_sqrtinv_see
     h = pa(tag); bm = h[h.split == "bastani300"]; h = h[h.split == "holdout"]
     log(f"    Protocol A {lab}: Holdout {fmt(acc(h.gold_code, h.bert_pred), mf1(h.gold_code, h.bert_pred))}; Math {fmt(acc(bm.gold_code, bm.bert_pred), mf1(bm.gold_code, bm.bert_pred))}")
 
+log("\n== Codebook-boundary error concentration (Section 4.2, point 3) ==")
+import numpy as _np
+from sklearn.metrics import confusion_matrix as _cmx
+_PAIRS = [("CO3", "CO1"), ("CO1", "CO3"), ("AL1", "CO1"), ("CO1", "AL1")]
+def _share(y, p, label):
+    m = _cmx(y, p, labels=CODES); tot = int(m.sum() - _np.trace(m))
+    idx = {c: i for i, c in enumerate(CODES)}
+    on = sum(int(m[idx[a], idx[c]]) for a, c in _PAIRS)
+    log(f"  {label:52s} {on:3d} of {tot:3d} errors = {on/tot*100:.0f}% on CO1/CO3 and AL1/CO1")
+    return on, tot
+_share(b.gold_code, b.opus_code, "Sonnet teacher, Mathematics (compact codebook)")
+_mst = pd.read_csv(RES / "math300_confusion_archived_student_2026-09-14.csv", index_col=0)
+_tot = int(_mst.values.sum() - _np.trace(_mst.values)); _on = sum(int(_mst.loc[a, c]) for a, c in _PAIRS)
+log(f"  {'student, Mathematics (learned from those labels)':52s} {_on:3d} of {_tot:3d} errors = {_on/_tot*100:.0f}% on CO1/CO3 and AL1/CO1")
+_share(S26.gold_code, S26.bert_pred, "same student, StudyChat (full codebook)")
+
 log("\n== Table 4: student size and gold volume (pooled OOF on the 300 evaluation turns) ==")
 log(f"  DistilRoBERTa 82M   0%:   {fmt(acc(DRB.gold_code, DRB.silver_pred), mf1(DRB.gold_code, DRB.silver_pred))}")
 log(f"  DistilRoBERTa 82M 100%:   {fmt(acc(DRB.gold_code, DRB.bert_pred), mf1(DRB.gold_code, DRB.bert_pred))}")
